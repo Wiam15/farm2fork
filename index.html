@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Farm2Fork - Accueil</title>
+    <link rel="stylesheet" href="styles.css">
+    <style>
+        .hero {
+            text-align: center;
+            padding: 50px 20px;
+            background-color: #f9f9f9;
+            position: relative;
+        }
+
+        .hero img {
+            width: 100%;
+            max-width: 600px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background-color: #28a745;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 16px;
+        }
+
+        .btn:hover {
+            background-color: #218838;
+        }
+    </style>
+</head>
+<body>
+    <header>
+    <div class="logo">
+        <img src="images/logo.jpeg" alt="Farm2Fork Logo">
+    </div>
+    <button class="nav-toggle" aria-label="ouvrir le menu">
+        <span class="hamburger"></span>
+    </button>
+    
+    <nav class="nav">
+        <a href="index.html" class="active">Accueil</a>
+        <a href="about.html">À propos</a>
+        <a href="products.html">Produits</a>
+        <a href="contact.html">Contact</a>
+    </nav>
+</header>
+
+    <section class="hero">
+        <!-- Image dynamique -->
+        <img id="slider-image" src="images/agri-tomates.webp" alt="Image d'accueil">
+        <h1>Bienvenue chez Farm2Fork</h1>
+        <p>Relions agriculteurs, restaurants et consommateurs avec des produits frais et locaux.</p>
+        <a href="products.html" class="btn">Voir nos produits</a>
+    </section>
+
+    <footer>
+        <p>Contactez-nous : 
+            <a href="mailto:contact@farm2fork.com">contact@farm2fork.com</a> | 
+            <a href="tel:+212619962704">+212 619 962 704</a> | 
+            <span>Casablanca, Maroc</span>
+        </p>
+        <p>Suivez-nous : 
+            <a href="https://www.instagram.com/farm2fork2.0" target="_blank">Instagram</a> | 
+            <a href="https://www.facebook.com/share/1AdYC8gKW2/" target="_blank">Facebook</a> | 
+            <a href="https://www.tiktok.com/@farm2fork8?_t=ZM-8wDTFSq7SaL&_r=1" target="_blank">TikTok</a>
+        </p>
+        <p>&copy; 2025 Farm2Fork. Tous droits réservés.</p>
+    </footer>
+
+    <script>
+        // Liste des images à afficher
+        const images = [
+            "images/agri-tomates.webp", // Première image
+            "images/restaurant.jpg",    // Deuxième image
+            "images/Panier.jpg"         // Troisième image
+        ];
+
+        let currentIndex = 0; // Index de l'image actuelle
+        const imageElement = document.getElementById("slider-image");
+
+        // Fonction pour changer les images toutes les 3 secondes
+        setInterval(() => {
+            currentIndex = (currentIndex + 1) % images.length; // Passer à l'image suivante en boucle
+            imageElement.src = images[currentIndex];          // Changer la source de l'image
+        }, 3000); // Délai de 3 secondes
+    </script>
+    <script>
+document.querySelector('.nav-toggle').addEventListener('click', function() {
+    document.querySelector('header nav').classList.toggle('open');
+});
+</script>
+</body>
+</html>
