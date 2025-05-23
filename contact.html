@@ -21,29 +21,40 @@
         <a href="contact.html">Contact</a>
     </nav>
 </header>
-    <section class="contact">
-        <h1>Contactez-nous</h1>
-        <p>Nous serons ravis de répondre à vos questions ou de recevoir vos suggestions.</p>
-        <form action="#" method="post">
-            <label for="name">Nom :</label>
-            <input type="text" id="name" name="name" placeholder="Votre nom" required>
 
-            <label for="email">Email :</label>
-            <input type="email" id="email" name="email" placeholder="Votre email" required>
 
-            <label for="message">Message :</label>
-            <textarea id="message" name="message" placeholder="Votre message" rows="5" required></textarea>
 
-            <button type="submit">Envoyer</button>
+
+   <!-- Contact Section -->
+  <section id="contact" class="section">
+
+    <div class="section-container">
+
+<h1>Contactez-nous</h1> 
+ <p>Nous serons ravis de répondre à vos questions ou de recevoir vos suggestions.</p>
+ 
+        <form class="contact-form" action="https://formspree.io/f/xpwdebwb" method="POST">
+          <input type="text" name="name" placeholder="Votre nom" required>
+          <input type="email" name="email" placeholder="Votre email" required>
+          <input  type="tel" 
+          id="phone" 
+          name="phone" 
+          placeholder="06-666-66666"
+          pattern="{0}[0-9][0-9]-[0-9][0-9][0-9]-[0-9][0-9][0-9][0-9]" 
+          required placeholder="téléphone" >
+          
+          <textarea name="message" placeholder="Votre message" required></textarea>
+          <!-- Success Message (Initially Hidden) -->
+          <div id="formOutput"></div> <!-- For displaying success/error messages -->
+
+          <button type="submit" class="cta-button">Send Message</button>
         </form>
+      </div>
+    </div>
+  </section>
 
-        <div class="contact-info">
-            <h2>Nos coordonnées</h2>
-            <p>Email : <a href="mailto:contact@farm2fork.com">contact@farm2fork.com</a></p>
-            <p>Téléphone : <a href="tel:+212619962704">+212 619 962 704</a></p>
-            <p>Adresse : Casablanca, Maroc</p>
-        </div>
-    </section>
+
+
 
     <footer>
         <p>Suivez-nous : 
@@ -53,10 +64,60 @@
         </p>
         <p>&copy; 2025 Farm2Fork. Tous droits réservés.</p>
     </footer>
+
+
+
+
+
+
+
     <script>
 document.querySelector('.nav-toggle').addEventListener('click', function() {
     document.querySelector('header nav').classList.toggle('open');
 });
+
+
+// Form Submission
+const form = document.querySelector('.contact-form');
+const formOutput = document.getElementById('formOutput'); // Make sure this exists in your HTML
+const submitButton = form.querySelector('button[type="submit"]'); // Reference to the submit button
+
+form.addEventListener('submit', async (e) => {
+  e.preventDefault();  // Prevent the default form submission
+
+  const formData = new FormData(form);
+
+  // Update button state to indicate submission is in progress
+  submitButton.textContent = 'Sending...';
+  submitButton.disabled = true;
+
+  try {
+    // Note the use of mode: 'no-cors'
+    const response = await fetch(form.action, {
+      method: 'POST',
+      body: formData,
+      headers: {
+        'Accept': 'application/json'
+      },
+      mode: 'no-cors' // Required for cross-origin requests with Formspree
+    });
+
+    // Because of no-cors, we cannot rely on response.ok
+    // If no error is thrown, assume success:
+    formOutput.innerHTML = <p class="success-message">Form submitted successfully!</p>;
+    form.reset(); // Clear the form
+  } catch (error) {
+    // If there's a network error, it will be caught here
+    formOutput.innerHTML = <p class="error-message">Error: ${error.message}</p>;
+  }
+
+  // Reset the button after a short delay
+  setTimeout(() => {
+    submitButton.textContent = 'Send Message';
+    submitButton.disabled = false;
+  }, 2000);
+});
+
 </script>
 </body>
 </html>
